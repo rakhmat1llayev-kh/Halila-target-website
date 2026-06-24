@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Mahsulot rasmi">
+  <rect width="800" height="600" fill="#e8ece6" />
+  <g fill="none" stroke="#9fb39a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="280" y="200" width="240" height="180" rx="14" />
+    <circle cx="340" cy="262" r="22" />
+    <path d="M300 372l66-66 44 44 40-40 56 56" />
+  </g>
+  <text x="400" y="452" text-anchor="middle" font-family="system-ui, sans-serif" font-size="30" fill="#7b8a76">Mahsulot rasmi / product photo</text>
+</svg>

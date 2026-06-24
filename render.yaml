@@ -1,0 +1,18 @@
+# Render.com blueprint — deploy with one click from a Git repo.
+# Docs: https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: halila-lead-site
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      # Set these in the Render dashboard (Environment) — do NOT commit secrets.
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: TELEGRAM_CHAT_ID
+        sync: false
+      # PORT is provided automatically by Render; server.js already reads it.

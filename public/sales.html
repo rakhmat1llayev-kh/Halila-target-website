@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="uz" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Halila — Tariflar</title>
+    <meta name="description" content="Halila tariflari: Silver, Gold va Gold Plus to'plamlari." />
+    <meta name="theme-color" content="#57bf05" />
+    <link rel="icon" type="image/svg+xml" href="img/favicon.svg" />
+    <link rel="apple-touch-icon" href="img/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script>
+      (function () {
+        var root = document.documentElement;
+        root.classList.add("js");
+        try {
+          var t = localStorage.getItem("theme");
+          if (!t) t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+          root.setAttribute("data-theme", t);
+          var l = localStorage.getItem("lang");
+          if (!l) l = (navigator.language || "uz").toLowerCase().indexOf("ru") === 0 ? "ru" : "uz";
+          root.setAttribute("lang", l);
+        } catch (e) {
+          root.setAttribute("data-theme", "light");
+          root.setAttribute("lang", "uz");
+        }
+      })();
+    </script>
+  </head>
+  <body data-page="sales">
+    <div id="site-header"></div>
+
+    <main>
+      <section class="page-hero">
+        <div class="container">
+          <span class="eyebrow" data-i18n="nav.sales">Tariflar</span>
+          <h1 data-i18n="sales.title">Tariflar va to'plamlar</h1>
+          <p data-i18n="sales.sub">Har bir tarifda bir nechta Halila mahsuloti birga keladi — eng mosini tanlang.</p>
+        </div>
+      </section>
+
+      <!-- PACKAGES — Silver (3), Gold (4), Gold Plus (6) -->
+      <section class="section">
+        <div class="container">
+          <div class="grid grid--3">
+            <!-- SILVER -->
+            <article class="tariff reveal">
+              <div class="tariff__media">
+                <img src="img/packages/silver.jpg" alt="Halila Silver" loading="lazy" />
+              </div>
+              <div class="tariff__body">
+                <div class="tariff__head">
+                  <h3 data-i18n="tf.silver.n">Silver</h3>
+                  <span class="tariff__units" data-i18n="tf.silver.u">3 ta mahsulot</span>
+                </div>
+                <p class="tariff__desc" data-i18n="tf.silver.d">Boshlash uchun ideal — asosiy 3 ta mahsulot.</p>
+                <p class="tariff__inc" data-i18n="tariff.includes">Tarkibida:</p>
+                <ul class="tariff__list">
+                  <li>Halila Sirop</li>
+                  <li>Halila 60+</li>
+                  <li>Halila Geniy</li>
+                </ul>
+                <a href="contact.html" class="btn btn--ghost btn--sm btn--block" data-i18n="tariff.order">Buyurtma berish</a>
+              </div>
+            </article>
+
+            <!-- GOLD (featured) -->
+            <article class="tariff tariff--featured reveal">
+              <span class="tariff__badge" data-i18n="tariff.popular">Ommabop</span>
+              <div class="tariff__media">
+                <img src="img/packages/gold.jpg" alt="Halila Gold" loading="lazy" />
+              </div>
+              <div class="tariff__body">
+                <div class="tariff__head">
+                  <h3 data-i18n="tf.gold.n">Gold</h3>
+                  <span class="tariff__units" data-i18n="tf.gold.u">4 ta mahsulot</span>
+                </div>
+                <p class="tariff__desc" data-i18n="tf.gold.d">Kengaytirilgan davolash uchun to'liqroq to'plam.</p>
+                <p class="tariff__inc" data-i18n="tariff.includes">Tarkibida:</p>
+                <ul class="tariff__list">
+                  <li>Halila Sirop</li>
+                  <li>Halila 60+</li>
+                  <li>Halila Geniy</li>
+                  <li>Yara ma'juni</li>
+                </ul>
+                <a href="contact.html" class="btn btn--primary btn--sm btn--block" data-i18n="tariff.order">Buyurtma berish</a>
+              </div>
+            </article>
+
+            <!-- GOLD PLUS -->
+            <article class="tariff reveal">
+              <span class="tariff__badge" data-i18n="tariff.best">Eng to'liq</span>
+              <div class="tariff__media">
+                <img src="img/packages/gold-plus.jpg" alt="Halila Gold Plus" loading="lazy" />
+              </div>
+              <div class="tariff__body">
+                <div class="tariff__head">
+                  <h3 data-i18n="tf.goldplus.n">Gold Plus</h3>
+                  <span class="tariff__units" data-i18n="tf.goldplus.u">6 ta mahsulot</span>
+                </div>
+                <p class="tariff__desc" data-i18n="tf.goldplus.d">Maksimal natija uchun eng to'liq to'plam.</p>
+                <p class="tariff__inc" data-i18n="tariff.includes">Tarkibida:</p>
+                <ul class="tariff__list">
+                  <li>Halila Sirop</li>
+                  <li>Halila 60+</li>
+                  <li>Halila Geniy</li>
+                  <li>Yara ma'juni</li>
+                  <li>Azorik pastasi</li>
+                  <li>Pasta honey</li>
+                </ul>
+                <a href="contact.html" class="btn btn--ghost btn--sm btn--block" data-i18n="tariff.order">Buyurtma berish</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section cta-band">
+        <div class="container">
+          <div class="cta-band__inner reveal">
+            <h2 data-i18n="cta.title">Hoziroq boshlaymizmi?</h2>
+            <p data-i18n="cta.text">Ariza qoldiring va biz siz bilan tez orada bog'lanamiz.</p>
+            <a href="contact.html" class="btn" data-i18n="nav.cta">Ariza qoldirish</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="site-footer"></div>
+    <script src="script.js"></script>
+  </body>
+</html>

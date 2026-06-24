@@ -1,0 +1,12 @@
+node_modules/
+.env
+*.log
+.DS_Store
+
+# Local-only / not needed for deployment
+# Leading slash anchors to repo root so it does NOT match public/img/
+# (Windows git is case-insensitive, so an unanchored "IMG/" would wrongly
+#  match public/img/ and exclude the optimized site images.)
+/IMG/
+/.claude/
+/resize-images.ps1

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="uz" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Halila — Maxfiylik siyosati</title>
+    <meta name="description" content="Halila maxfiylik siyosati." />
+    <meta name="theme-color" content="#57bf05" />
+    <link rel="icon" type="image/svg+xml" href="img/favicon.svg" />
+    <link rel="apple-touch-icon" href="img/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script>
+      (function () {
+        var root = document.documentElement;
+        root.classList.add("js");
+        try {
+          var t = localStorage.getItem("theme");
+          if (!t) t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+          root.setAttribute("data-theme", t);
+          var l = localStorage.getItem("lang");
+          if (!l) l = (navigator.language || "uz").toLowerCase().indexOf("ru") === 0 ? "ru" : "uz";
+          root.setAttribute("lang", l);
+        } catch (e) {
+          root.setAttribute("data-theme", "light");
+          root.setAttribute("lang", "uz");
+        }
+      })();
+    </script>
+  </head>
+  <body data-page="privacy">
+    <div id="site-header"></div>
+
+    <main>
+      <section class="page-hero">
+        <div class="container">
+          <h1 data-i18n="privacy.title">Maxfiylik siyosati</h1>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <!-- The privacy text lives in script.js under the "privacy.body" key -->
+          <div class="legal reveal" data-i18n-html="privacy.body"></div>
+        </div>
+      </section>
+    </main>
+
+    <div id="site-footer"></div>
+    <script src="script.js"></script>
+  </body>
+</html>

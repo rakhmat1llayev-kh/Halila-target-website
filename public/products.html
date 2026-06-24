@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="uz" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Halila — Mahsulotlar</title>
+    <meta name="description" content="Halila mahsulotlari va ular haqida ma'lumot." />
+    <meta name="theme-color" content="#57bf05" />
+    <link rel="icon" type="image/svg+xml" href="img/favicon.svg" />
+    <link rel="apple-touch-icon" href="img/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script>
+      (function () {
+        var root = document.documentElement;
+        root.classList.add("js");
+        try {
+          var t = localStorage.getItem("theme");
+          if (!t) t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+          root.setAttribute("data-theme", t);
+          var l = localStorage.getItem("lang");
+          if (!l) l = (navigator.language || "uz").toLowerCase().indexOf("ru") === 0 ? "ru" : "uz";
+          root.setAttribute("lang", l);
+        } catch (e) {
+          root.setAttribute("data-theme", "light");
+          root.setAttribute("lang", "uz");
+        }
+      })();
+    </script>
+  </head>
+  <body data-page="products">
+    <div id="site-header"></div>
+
+    <main>
+      <section class="page-hero">
+        <div class="container">
+          <span class="eyebrow" data-i18n="nav.products">Mahsulotlar</span>
+          <h1 data-i18n="products.title">Mahsulotlar</h1>
+          <p data-i18n="products.sub">Bizning mahsulotlar bilan batafsil tanishing.</p>
+        </div>
+      </section>
+
+      <!-- PRODUCT LIST — order: Halila 60+, Geniy, Yara ma'juni, Azorik, Sirop -->
+      <section class="section">
+        <div class="container">
+          <div class="grid grid--3">
+            <article class="product reveal">
+              <img class="product__img product__img--contain" src="img/products/halila-60.png" alt="Halila 60+" loading="lazy" />
+              <div class="product__body">
+                <h3 data-i18n="p.h60.n">Halila 60+</h3>
+                <p data-i18n="p.h60.d">60 dan ortiq tabiiy giyoh va minerallar asosida yaralar, o'simtalar va onkologik kasalliklarni davolashda samarali pasta.</p>
+                <div class="product__meta">
+                  <span class="stars" aria-label="5/5">★★★★★</span>
+                </div>
+                <a href="contact.html" class="btn btn--primary btn--sm" data-i18n="prod.order">Buyurtma berish</a>
+              </div>
+            </article>
+            <article class="product reveal">
+              <img class="product__img product__img--contain" src="img/products/geniy.png" alt="Halila Geniy" loading="lazy" />
+              <div class="product__body">
+                <h3 data-i18n="p.geniy.n">Halila Geniy</h3>
+                <p data-i18n="p.geniy.d">Halila "Geniy" miyadagi va yurakdagi qon tomirlarni ochadi, zehni kuchaytirib, xotirani va ko'rishni yaxshilaydi.</p>
+                <div class="product__meta">
+                  <span class="stars" aria-label="5/5">★★★★★</span>
+                </div>
+                <a href="contact.html" class="btn btn--primary btn--sm" data-i18n="prod.order">Buyurtma berish</a>
+              </div>
+            </article>
+            <article class="product reveal">
+              <img class="product__img product__img--contain" src="img/products/yara-majuni.png" alt="Yara ma'juni" loading="lazy" />
+              <div class="product__body">
+                <h3 data-i18n="p.yara.n">Yara ma'juni</h3>
+                <p data-i18n="p.yara.d">Halila "Yara ma'juni" ichki va tashqi yaralarni, o'smalarni quritadi va saraton yara shakllarini to'xtatadi.</p>
+                <div class="product__meta">
+                  <span class="stars" aria-label="5/5">★★★★★</span>
+                </div>
+                <a href="contact.html" class="btn btn--primary btn--sm" data-i18n="prod.order">Buyurtma berish</a>
+              </div>
+            </article>
+            <article class="product reveal">
+              <img class="product__img product__img--contain" src="img/products/azorik.png" alt="Azorik pastasi" loading="lazy" />
+              <div class="product__body">
+                <h3 data-i18n="p.azorik.n">Azorik pastasi</h3>
+                <p data-i18n="p.azorik.d">Azorik pastasi suyak va mushaklarni quvvatlantiradi, oshqozon va ichak faoliyatini yaxshilab, kistalarni quritadi.</p>
+                <div class="product__meta">
+                  <span class="stars" aria-label="5/5">★★★★★</span>
+                </div>
+                <a href="contact.html" class="btn btn--primary btn--sm" data-i18n="prod.order">Buyurtma berish</a>
+              </div>
+            </article>
+            <article class="product reveal">
+              <img class="product__img product__img--contain" src="img/products/sirop.png" alt="Halila Sirop" loading="lazy" />
+              <div class="product__body">
+                <h3 data-i18n="p.sirop.n">Halila Sirop</h3>
+                <p data-i18n="p.sirop.d">Halila siropi saraton va boshqa onkologik kasalliklarni davolashda, jigar va taloqni tozalashda, shuningdek, garmonal buzilishlarda yordam beradi.</p>
+                <div class="product__meta">
+                  <span class="stars" aria-label="5/5">★★★★★</span>
+                </div>
+                <a href="contact.html" class="btn btn--primary btn--sm" data-i18n="prod.order">Buyurtma berish</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section cta-band">
+        <div class="container">
+          <div class="cta-band__inner reveal">
+            <h2 data-i18n="cta.title">Hoziroq boshlaymizmi?</h2>
+            <p data-i18n="cta.text">Ariza qoldiring va biz siz bilan tez orada bog'lanamiz.</p>
+            <a href="contact.html" class="btn" data-i18n="nav.cta">Ariza qoldirish</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="site-footer"></div>
+    <script src="script.js"></script>
+  </body>
+</html>
