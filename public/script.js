@@ -131,6 +131,9 @@
       "p.sirop.n": "Halila Sirop",
       "p.sirop.d":
         "Halila siropi saraton va boshqa onkologik kasalliklarni davolashda, jigar va taloqni tozalashda, shuningdek, garmonal buzilishlarda yordam beradi.",
+      "p.honey.n": "Pasta Honey",
+      "p.honey.d":
+        "Halila \"Pasta Honey\" — tabiiy asal va shifobaxsh giyohlar qorishmasi; immunitetni mustahkamlaydi, organizmni quvvatlantiradi va umumiy salomatlikni qo'llab-quvvatlaydi.",
 
       // Tariffs / Packages page (was "Sales")
       "sales.title": "Tariflar va to'plamlar",
@@ -165,7 +168,9 @@
       "card.sub": "Bu atigi 10 soniya.",
       "label.name": "Ism",
       "label.phone": "Telefon",
+      "label.problem": "Muammo (Kasallik turi, bosqichi)",
       "ph.name": "Ismingiz",
+      "ph.problem": "Kasallik turi, bosqichi",
       "btn.submit": "Yuborish",
       "success.title": "Rahmat!",
       "success.text":
@@ -188,6 +193,7 @@
       // Form error messages
       "err.name": "Iltimos, ismingizni kiriting.",
       "err.phone": "Iltimos, to'g'ri telefon raqam kiriting.",
+      "err.problem": "Iltimos, muammoingizni qisqacha yozing.",
       "err.generic": "Xatolik yuz berdi. Iltimos, qayta urinib ko'ring.",
       "err.network": "Tarmoq xatosi. Aloqangizni tekshirib, qayta urinib ko'ring.",
     },
@@ -259,6 +265,9 @@
       "p.sirop.n": "Halila Сироп",
       "p.sirop.d":
         "Сироп Halila помогает при онкологических заболеваниях, очищает печень и селезёнку, помогает при гормональных нарушениях.",
+      "p.honey.n": "Pasta Honey",
+      "p.honey.d":
+        "Halila «Pasta Honey» — смесь натурального мёда и лечебных трав; укрепляет иммунитет, придаёт сил и поддерживает общее здоровье.",
 
       "sales.title": "Тарифы и наборы",
       "sales.sub":
@@ -289,7 +298,9 @@
       "card.sub": "Это займёт 10 секунд.",
       "label.name": "Имя",
       "label.phone": "Телефон",
+      "label.problem": "Проблема (тип, стадия болезни)",
       "ph.name": "Ваше имя",
+      "ph.problem": "Тип и стадия болезни",
       "btn.submit": "Отправить",
       "success.title": "Спасибо!",
       "success.text": "Мы получили ваш номер и скоро перезвоним.",
@@ -307,6 +318,7 @@
 
       "err.name": "Пожалуйста, введите ваше имя.",
       "err.phone": "Пожалуйста, введите корректный номер телефона.",
+      "err.problem": "Пожалуйста, кратко опишите вашу проблему.",
       "err.generic": "Что-то пошло не так. Попробуйте ещё раз.",
       "err.network": "Ошибка сети. Проверьте соединение и попробуйте снова.",
     },
@@ -722,13 +734,16 @@
       if (slot) slot.textContent = key ? t(key) : "";
       if (input) input.classList.toggle("invalid", Boolean(key));
     };
-    const clearErrors = () => ["name", "phone"].forEach((f) => setError(f, ""));
+    const clearErrors = () =>
+      ["name", "phone", "problem"].forEach((f) => setError(f, ""));
 
     const validateClient = (data) => {
       const errors = {};
       if (!data.name || data.name.trim().length < 2) errors.name = "err.name";
       const digits = (data.phone || "").replace(/[^\d]/g, "");
       if (digits.length < 6) errors.phone = "err.phone";
+      if (!data.problem || data.problem.trim().length < 2)
+        errors.problem = "err.problem";
       return errors;
     };
 
@@ -743,6 +758,7 @@
       const data = {
         name: form.elements.name.value,
         phone: form.elements.phone.value,
+        problem: form.elements.problem.value,
         company: form.elements.company.value, // honeypot (anti-spam)
       };
 
@@ -779,8 +795,13 @@
         }
 
         if (json.errors) {
+          const errKey = {
+            name: "err.name",
+            phone: "err.phone",
+            problem: "err.problem",
+          };
           Object.keys(json.errors).forEach((f) =>
-            setError(f, f === "name" ? "err.name" : "err.phone")
+            setError(f, errKey[f] || "err.generic")
           );
           return;
         }

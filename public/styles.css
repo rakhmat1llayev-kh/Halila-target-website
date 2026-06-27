@@ -292,6 +292,30 @@ body {
 .field input.invalid {
   border-color: #e5484d;
 }
+.field textarea {
+  width: 100%;
+  padding: 13px 14px;
+  font-size: 1rem;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--input-bg);
+  border: 1.5px solid var(--border);
+  border-radius: 11px;
+  resize: vertical;
+  min-height: 84px;
+  transition: border-color var(--dur), box-shadow var(--dur);
+}
+.field textarea::placeholder {
+  color: color-mix(in srgb, var(--muted) 75%, transparent);
+}
+.field textarea:focus {
+  outline: none;
+  border-color: var(--brand);
+  box-shadow: 0 0 0 4px var(--ring);
+}
+.field textarea.invalid {
+  border-color: #e5484d;
+}
 .error {
   display: block;
   min-height: 1em;

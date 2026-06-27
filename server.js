@@ -35,12 +35,14 @@ function validate(body) {
   const errors = {};
   const name = clean(body.name, 100);
   const phone = clean(body.phone, 40);
+  const problem = clean(body.problem, 1000);
 
   if (name.length < 2) errors.name = "Please enter your name.";
   if (phone.replace(/[^\d]/g, "").length < 6)
     errors.phone = "Please enter a valid phone number.";
+  if (problem.length < 2) errors.problem = "Please describe your problem.";
 
-  return { errors, data: { name, phone } };
+  return { errors, data: { name, phone, problem } };
 }
 
 // ── Telegram delivery ─────────────────────────────────────────────────────────
@@ -51,12 +53,13 @@ function escapeHtml(s) {
     .replace(/>/g, "&gt;");
 }
 
-async function sendToTelegram({ name, phone }) {
+async function sendToTelegram({ name, phone, problem }) {
   const lines = [
     "🟢 <b>Saytdan yangi ariza</b>",
     "",
     `👤 <b>Ism:</b> ${escapeHtml(name)}`,
     `📞 <b>Telefon:</b> ${escapeHtml(phone)}`,
+    `🩺 <b>Muammo:</b> ${escapeHtml(problem)}`,
   ];
 
   const res = await fetch(
