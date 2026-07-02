@@ -55,7 +55,7 @@ function escapeHtml(s) {
 
 async function sendToTelegram({ name, phone, problem }) {
   const lines = [
-    "🟢 <b>Saytdan yangi ariza</b>",
+    "🟢 <b>Target saytdan yangi ariza</b>",
     "",
     `👤 <b>Ism:</b> ${escapeHtml(name)}`,
     `📞 <b>Telefon:</b> ${escapeHtml(phone)}`,
