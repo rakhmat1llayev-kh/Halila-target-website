@@ -1586,3 +1586,315 @@ body.cursor-press .cursor-ring {
     display: none !important;
   }
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   PREMIUM "THANK YOU" OVERLAY (full-screen, shown after a successful lead)
+   Built once in script.js → openThankYou(). Its own dark, glassy luxe scene
+   so it looks premium in both light and dark site themes.
+   ══════════════════════════════════════════════════════════════════════════ */
+.ty-lock {
+  overflow: hidden;
+}
+.ty {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+.ty.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.ty__backdrop {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+      110% 90% at 50% 30%,
+      rgba(87, 191, 0, 0.18),
+      transparent 55%
+    ),
+    linear-gradient(160deg, #06140b 0%, #0a0f0b 55%, #050906 100%);
+  background-color: rgba(4, 10, 6, 0.82);
+  -webkit-backdrop-filter: blur(16px) saturate(130%);
+  backdrop-filter: blur(16px) saturate(130%);
+}
+
+/* The centered glass card */
+.ty__card {
+  position: relative;
+  width: min(520px, 100%);
+  padding: 52px 40px 40px;
+  text-align: center;
+  border-radius: 28px;
+  background: linear-gradient(
+    180deg,
+    rgba(24, 33, 23, 0.94),
+    rgba(11, 17, 12, 0.96)
+  );
+  box-shadow: 0 50px 130px -30px rgba(0, 0, 0, 0.85),
+    0 0 90px -18px rgba(87, 191, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transform: translateY(26px) scale(0.94);
+  opacity: 0;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.5s ease;
+}
+.ty.is-open .ty__card {
+  transform: none;
+  opacity: 1;
+}
+/* Luxe green → gold gradient hairline border */
+.ty__card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    140deg,
+    rgba(127, 226, 44, 0.6),
+    rgba(255, 255, 255, 0.04) 38%,
+    rgba(255, 255, 255, 0.04) 60%,
+    rgba(233, 196, 102, 0.5)
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Close (X) */
+.ty__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  transition: transform 0.25s var(--ease), background 0.25s, color 0.25s,
+    border-color 0.25s;
+}
+.ty__close svg {
+  width: 20px;
+  height: 20px;
+}
+.ty__close:hover {
+  transform: rotate(90deg);
+  color: #fff;
+  border-color: rgba(127, 226, 44, 0.6);
+  background: rgba(87, 191, 0, 0.16);
+}
+.ty__close:active {
+  transform: rotate(90deg) scale(0.92);
+}
+
+/* Animated checkmark disc + pulsing halo */
+.ty__check {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 24px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: radial-gradient(circle at 34% 28%, #8fe93c, #57bf00 58%, #3c8c00);
+  box-shadow: 0 14px 44px -8px rgba(87, 191, 0, 0.65),
+    inset 0 2px 6px rgba(255, 255, 255, 0.4);
+}
+.ty__ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  border: 2px solid rgba(127, 226, 44, 0.55);
+  opacity: 0;
+}
+.ty.is-open .ty__ring {
+  animation: tyPulse 2.6s ease-out infinite;
+}
+.ty.is-open .ty__ring:nth-child(2) {
+  animation-delay: 1.3s;
+}
+.ty__tick {
+  width: 50px;
+  height: 50px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 60;
+  stroke-dashoffset: 60;
+}
+.ty.is-open .ty__tick {
+  animation: tyDraw 0.6s 0.35s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+/* Text */
+.ty__eyebrow {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #8fe93c;
+  margin-bottom: 10px;
+}
+.ty__title {
+  margin: 0 0 12px;
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-size: clamp(2.1rem, 6vw, 2.9rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: 0.01em;
+  background: linear-gradient(92deg, #ffffff, #d8f6c2 60%, #e9c46a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.ty__text {
+  margin: 0 auto;
+  max-width: 38ch;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 1.06rem;
+  line-height: 1.6;
+}
+.ty__btn {
+  margin-top: 28px;
+  height: 48px;
+  padding: 0 30px;
+  border: none;
+  border-radius: 999px;
+  font-family: inherit;
+  font-weight: 800;
+  font-size: 1rem;
+  color: #07120a;
+  cursor: pointer;
+  background: linear-gradient(180deg, #7fe22c, #57bf00);
+  box-shadow: 0 12px 30px -10px rgba(87, 191, 0, 0.7);
+  transition: transform 0.2s var(--ease), box-shadow 0.2s, filter 0.2s;
+}
+.ty__btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+  box-shadow: 0 18px 40px -12px rgba(87, 191, 0, 0.8);
+}
+.ty__btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Staggered entrance of the card's content */
+.ty__eyebrow,
+.ty__title,
+.ty__text,
+.ty__btn {
+  opacity: 0;
+  transform: translateY(14px);
+}
+.ty.is-open .ty__eyebrow,
+.ty.is-open .ty__title,
+.ty.is-open .ty__text,
+.ty.is-open .ty__btn {
+  animation: tyRise 0.6s var(--enter-ease) forwards;
+}
+.ty.is-open .ty__eyebrow {
+  animation-delay: 0.3s;
+}
+.ty.is-open .ty__title {
+  animation-delay: 0.42s;
+}
+.ty.is-open .ty__text {
+  animation-delay: 0.54s;
+}
+.ty.is-open .ty__btn {
+  animation-delay: 0.66s;
+}
+
+/* Gold/green sparkle shimmer */
+.ty__sparks {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.ty__spark {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: radial-gradient(circle, #ffffff, rgba(233, 196, 102, 0.85) 60%, transparent);
+  opacity: 0;
+  filter: drop-shadow(0 0 6px rgba(233, 196, 102, 0.6));
+}
+.ty.is-open .ty__spark {
+  animation: tySpark 3.4s ease-in-out infinite;
+}
+
+@keyframes tyDraw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes tyPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+@keyframes tyRise {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes tySpark {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ty,
+  .ty__card {
+    transition: opacity 0.2s ease !important;
+  }
+  .ty__card,
+  .ty__eyebrow,
+  .ty__title,
+  .ty__text,
+  .ty__btn {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+  .ty__tick {
+    stroke-dashoffset: 0 !important;
+    animation: none !important;
+  }
+  .ty__ring,
+  .ty__spark {
+    animation: none !important;
+  }
+}
