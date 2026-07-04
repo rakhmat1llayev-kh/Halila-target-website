@@ -14,7 +14,8 @@ const telegramEnabled = Boolean(TELEGRAM_BOT_TOKEN && TELEGRAM_CHAT_ID);
 const app = express();
 app.use(express.json({ limit: "32kb" }));
 app.use(express.urlencoded({ extended: true, limit: "32kb" }));
-app.use(express.static(path.join(__dirname, "public")));
+// `extensions: ["html"]` lets clean URLs like /rahmat resolve to rahmat.html
+app.use(express.static(path.join(__dirname, "public"), { extensions: ["html"] }));
 
 // ── Tiny in-memory rate limiter: max 5 submissions / minute / IP ──────────────
 const hits = new Map();

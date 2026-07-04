@@ -1684,6 +1684,7 @@ body.cursor-press .cursor-ring {
   background: rgba(255, 255, 255, 0.05);
   color: rgba(255, 255, 255, 0.8);
   cursor: pointer;
+  text-decoration: none;
   transition: transform 0.25s var(--ease), background 0.25s, color 0.25s,
     border-color 0.25s;
 }
@@ -1772,6 +1773,9 @@ body.cursor-press .cursor-ring {
   line-height: 1.6;
 }
 .ty__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   margin-top: 28px;
   height: 48px;
   padding: 0 30px;
@@ -1782,6 +1786,7 @@ body.cursor-press .cursor-ring {
   font-size: 1rem;
   color: #07120a;
   cursor: pointer;
+  text-decoration: none;
   background: linear-gradient(180deg, #7fe22c, #57bf00);
   box-shadow: 0 12px 30px -10px rgba(87, 191, 0, 0.7);
   transition: transform 0.2s var(--ease), box-shadow 0.2s, filter 0.2s;

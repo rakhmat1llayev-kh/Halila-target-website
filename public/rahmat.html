@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="uz" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Halila — Rahmat!</title>
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#57bf05" />
+    <link rel="icon" type="image/svg+xml" href="img/favicon.svg" />
+    <link rel="apple-touch-icon" href="img/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script>
+      (function () {
+        var root = document.documentElement;
+        root.classList.add("js");
+        try {
+          var t = localStorage.getItem("theme");
+          if (!t) t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+          root.setAttribute("data-theme", t);
+          var l = localStorage.getItem("lang");
+          if (!l) l = (navigator.language || "uz").toLowerCase().indexOf("ru") === 0 ? "ru" : "uz";
+          root.setAttribute("lang", l);
+        } catch (e) {
+          root.setAttribute("data-theme", "light");
+          root.setAttribute("lang", "uz");
+        }
+      })();
+    </script>
+
+    <!-- Meta Pixel Code — fires PageView AND a Lead conversion on this page -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '2816601732028084');
+      fbq('track', 'PageView');
+      fbq('track', 'Lead');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=2816601732028084&ev=Lead&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+  </head>
+  <body data-page="rahmat">
+    <main class="ty is-open" role="main">
+      <div class="ty__backdrop"></div>
+      <div class="ty__card">
+        <a class="ty__close" href="index.html" aria-label="Bosh sahifa">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </a>
+        <div class="ty__check">
+          <span class="ty__ring"></span><span class="ty__ring"></span>
+          <svg class="ty__tick" viewBox="0 0 52 52"><path d="M14 27l8 8 16-18"/></svg>
+        </div>
+        <span class="ty__eyebrow">HALILA</span>
+        <h2 class="ty__title" data-i18n="success.title">Rahmat!</h2>
+        <p class="ty__text" data-i18n="success.text">Arizangiz qabul qilindi. Halila jamoasi tez orada siz bilan bog'lanadi.</p>
+        <a class="ty__btn" href="index.html" data-i18n="success.home">Bosh sahifaga qaytish</a>
+      </div>
+      <div class="ty__sparks" aria-hidden="true">
+        <span class="ty__spark" style="left:12%;top:20%;animation-delay:0s"></span>
+        <span class="ty__spark" style="left:86%;top:24%;animation-delay:0.28s"></span>
+        <span class="ty__spark" style="left:22%;top:76%;animation-delay:0.56s"></span>
+        <span class="ty__spark" style="left:80%;top:80%;animation-delay:0.84s"></span>
+        <span class="ty__spark" style="left:50%;top:8%;animation-delay:1.12s"></span>
+        <span class="ty__spark" style="left:7%;top:54%;animation-delay:1.4s"></span>
+        <span class="ty__spark" style="left:93%;top:58%;animation-delay:1.68s"></span>
+        <span class="ty__spark" style="left:38%;top:90%;animation-delay:1.96s"></span>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

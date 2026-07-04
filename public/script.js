@@ -177,6 +177,7 @@
         "Arizangiz qabul qilindi. Halila jamoasi tez orada siz bilan bog'lanadi.",
       "success.again": "Yana yuborish",
       "success.close": "Yopish",
+      "success.home": "Bosh sahifaga qaytish",
 
       // Contact page
       "contact.title": "Aloqa",
@@ -307,6 +308,7 @@
       "success.text": "Ваша заявка принята. Команда Halila скоро свяжется с вами.",
       "success.again": "Отправить ещё",
       "success.close": "Закрыть",
+      "success.home": "На главную",
 
       "contact.title": "Контакты",
       "contact.sub": "Свяжитесь с нами или оставьте заявку — мы скоро ответим.",
@@ -730,72 +732,6 @@
     const success = document.getElementById("success");
     const resetBtn = document.getElementById("resetBtn");
 
-    // ---- Premium full-screen "Thank you" overlay (built once) -------------
-    if (!document.getElementById("thankyou")) {
-      const fnt = document.createElement("link");
-      fnt.rel = "stylesheet";
-      fnt.href =
-        "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap";
-      document.head.appendChild(fnt);
-
-      const spots = [
-        [12, 20], [86, 24], [22, 76], [80, 80],
-        [50, 8], [7, 54], [93, 58], [38, 90],
-      ];
-      let sparks = "";
-      spots.forEach((s, i) => {
-        sparks +=
-          "<span class='ty__spark' style='left:" + s[0] + "%;top:" + s[1] +
-          "%;animation-delay:" + (i * 0.28).toFixed(2) + "s'></span>";
-      });
-
-      const ty = document.createElement("div");
-      ty.className = "ty";
-      ty.id = "thankyou";
-      ty.setAttribute("role", "dialog");
-      ty.setAttribute("aria-modal", "true");
-      ty.setAttribute("aria-labelledby", "tyTitle");
-      ty.innerHTML =
-        "<div class='ty__backdrop'></div>" +
-        "<div class='ty__card'>" +
-          "<button class='ty__close' id='tyClose' type='button' aria-label='Close'>" +
-            "<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round'><path d='M6 6l12 12M18 6L6 18'/></svg>" +
-          "</button>" +
-          "<div class='ty__check'>" +
-            "<span class='ty__ring'></span><span class='ty__ring'></span>" +
-            "<svg class='ty__tick' viewBox='0 0 52 52'><path d='M14 27l8 8 16-18'/></svg>" +
-          "</div>" +
-          "<span class='ty__eyebrow'>HALILA</span>" +
-          "<h2 class='ty__title' id='tyTitle' data-i18n='success.title'>Rahmat!</h2>" +
-          "<p class='ty__text' data-i18n='success.text'></p>" +
-          "<button class='ty__btn' id='tyBack' type='button' data-i18n='success.close'>Yopish</button>" +
-        "</div>" +
-        "<div class='ty__sparks' aria-hidden='true'>" + sparks + "</div>";
-      document.body.appendChild(ty);
-    }
-
-    const overlay = document.getElementById("thankyou");
-    const onTyKey = (e) => {
-      if (e.key === "Escape") closeThankYou();
-    };
-    function openThankYou() {
-      overlay.classList.add("is-open");
-      document.body.classList.add("ty-lock");
-      document.addEventListener("keydown", onTyKey);
-      const c = overlay.querySelector("#tyClose");
-      if (c) c.focus();
-    }
-    function closeThankYou() {
-      overlay.classList.remove("is-open");
-      document.body.classList.remove("ty-lock");
-      document.removeEventListener("keydown", onTyKey);
-    }
-    overlay.querySelector("#tyClose").addEventListener("click", closeThankYou);
-    overlay.querySelector("#tyBack").addEventListener("click", closeThankYou);
-    overlay
-      .querySelector(".ty__backdrop")
-      .addEventListener("click", closeThankYou);
-
     const setError = (field, key) => {
       const input = form.elements[field];
       const slot = form.querySelector(`[data-error-for="${field}"]`);
@@ -850,9 +786,9 @@
         const json = await res.json().catch(() => ({}));
 
         if (res.ok && json.ok) {
-          form.reset();
-          clearErrors();
-          openThankYou();
+          // Redirect to the dedicated thank-you page so it has a real URL
+          // (/rahmat) — needed for ad-conversion tracking (Meta "Lead").
+          window.location.href = "/rahmat";
           return;
         }
 
