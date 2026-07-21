@@ -127,6 +127,11 @@ app.get("/health", (_req, res) => {
   res.json({ ok: true, telegram: telegramEnabled });
 });
 
+// ── Anything else → the branded 404 page (it carries our phone number) ───────
+app.use((_req, res) => {
+  res.status(404).sendFile(path.join(__dirname, "public", "404.html"));
+});
+
 app.listen(PORT, () => {
   console.log(`\n  Lead site running on  http://localhost:${PORT}`);
   console.log(

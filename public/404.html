@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="uz" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- A 404 can be served from ANY url depth (/a/b/c), so anchor every
+         relative path (styles.css, script.js, img/…, index.html) to the root. -->
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-i18n="nf.meta">Sahifa topilmadi (404) — Halila</title>
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#57bf05" />
+    <link rel="icon" type="image/svg+xml" href="img/favicon.svg" />
+    <link rel="apple-touch-icon" href="img/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script>
+      (function () {
+        var root = document.documentElement;
+        root.classList.add("js");
+        try {
+          var t = localStorage.getItem("theme");
+          if (!t) t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+          root.setAttribute("data-theme", t);
+          var l = localStorage.getItem("lang");
+          if (!l) l = (navigator.language || "uz").toLowerCase().indexOf("ru") === 0 ? "ru" : "uz";
+          root.setAttribute("lang", l);
+        } catch (e) {
+          root.setAttribute("data-theme", "light");
+          root.setAttribute("lang", "uz");
+        }
+      })();
+    </script>
+
+    <!-- Meta Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '2816601732028084');
+      fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=2816601732028084&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+
+    <style>
+      /* ── 404 — only this page needs these, so they live here ────────────── */
+      .nf { position: relative; overflow: hidden; padding: clamp(56px, 10vh, 110px) 0 clamp(64px, 12vh, 130px); }
+      .nf__glow {
+        position: absolute; inset: -20% -10% auto -10%; height: 520px; pointer-events: none;
+        background:
+          radial-gradient(closest-side, var(--glow-1), transparent 72%) 22% 30% / 620px 620px no-repeat,
+          radial-gradient(closest-side, var(--glow-2), transparent 72%) 82% 8% / 520px 520px no-repeat;
+      }
+      .nf__inner { position: relative; text-align: center; }
+
+      .nf__eyebrow {
+        display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 2.4px;
+        text-transform: uppercase; color: var(--brand);
+        background: var(--brand-soft); border-radius: 999px; padding: 7px 16px;
+      }
+
+      /* "4 ◯ 4" — the middle zero is a leaf that draws itself in */
+      .nf__code { display: flex; align-items: center; justify-content: center; gap: clamp(4px, 1.6vw, 16px); margin: 18px 0 4px; }
+      .nf__digit {
+        font-size: clamp(104px, 24vw, 200px); font-weight: 800; line-height: 0.86;
+        letter-spacing: -6px; color: var(--text);
+      }
+      .nf__mark { width: clamp(104px, 24vw, 200px); height: auto; overflow: visible; }
+      .nf__ring {
+        fill: none; stroke: var(--brand); stroke-width: 7; stroke-linecap: round;
+        stroke-dasharray: 330; stroke-dashoffset: 330;
+        animation: nfDraw 1.15s var(--enter-ease) 0.1s forwards;
+      }
+      .nf__leaf {
+        fill: none; stroke: var(--brand); stroke-width: 7; stroke-linecap: round; stroke-linejoin: round;
+        stroke-dasharray: 200; stroke-dashoffset: 200;
+        animation: nfDraw 0.9s var(--enter-ease) 0.75s forwards;
+      }
+      .nf__vein {
+        fill: none; stroke: var(--brand); stroke-width: 5; stroke-linecap: round; opacity: 0.55;
+        stroke-dasharray: 60; stroke-dashoffset: 60;
+        animation: nfDraw 0.6s var(--enter-ease) 1.25s forwards;
+      }
+      @keyframes nfDraw { to { stroke-dashoffset: 0; } }
+
+      .nf h1 { font-size: clamp(26px, 4.6vw, 42px); line-height: 1.2; margin: 14px 0 0; }
+      .nf__lead { margin: 14px auto 0; max-width: 520px; color: var(--muted); font-size: 17px; }
+
+      /* ── The point of this page: you can still just phone us ───────────── */
+      .nf__call {
+        margin: 34px auto 0; max-width: 520px;
+        background: var(--surface); border: 1px solid var(--border); border-radius: 22px;
+        padding: 28px 26px; box-shadow: var(--shadow);
+      }
+      .nf__call-label {
+        font-size: 11.5px; font-weight: 700; letter-spacing: 2.4px;
+        text-transform: uppercase; color: var(--muted);
+      }
+      .nf__tel {
+        display: inline-flex; align-items: center; gap: 10px; margin-top: 8px;
+        font-size: clamp(26px, 6.2vw, 38px); font-weight: 800; letter-spacing: -0.5px;
+        color: var(--text); text-decoration: none;
+        transition: color var(--dur) var(--ease), transform var(--dur) var(--ease);
+      }
+      .nf__tel:hover { color: var(--brand); transform: scale(1.02); }
+      .nf__tel svg { width: 0.72em; height: 0.72em; color: var(--brand); flex: none; }
+      .nf__hours { margin: 8px 0 0; font-size: 13.5px; color: var(--muted); }
+
+      .nf__actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 28px; }
+
+      .nf__more { margin-top: 40px; }
+      .nf__more-title { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+      .nf__chips { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 14px; }
+      .nf__chips a {
+        padding: 10px 18px; border-radius: 999px; border: 1px solid var(--border);
+        background: var(--bg-soft); color: var(--text); text-decoration: none;
+        font-size: 14px; font-weight: 600;
+        transition: border-color var(--dur) var(--ease), background var(--dur) var(--ease), transform var(--dur) var(--ease);
+      }
+      .nf__chips a:hover { border-color: var(--brand); background: var(--brand-soft); transform: translateY(-2px); }
+
+      @media (max-width: 640px) {
+        .nf__digit { letter-spacing: -3px; }
+        .nf__call { padding: 24px 18px; }
+        .nf__actions .btn { width: 100%; justify-content: center; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .nf__ring, .nf__leaf, .nf__vein { animation: none; stroke-dashoffset: 0; }
+      }
+    </style>
+  </head>
+  <body data-page="404">
+    <!-- Header is built by script.js -->
+    <div id="site-header"></div>
+
+    <main>
+      <section class="nf">
+        <div class="nf__glow" aria-hidden="true"></div>
+        <div class="container nf__inner">
+          <span class="nf__eyebrow" data-i18n="nf.eyebrow">Xatolik 404</span>
+
+          <div class="nf__code" aria-label="404">
+            <span class="nf__digit" aria-hidden="true">4</span>
+
+            <svg class="nf__mark" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+              <circle class="nf__ring" cx="60" cy="60" r="52" />
+              <path class="nf__leaf" d="M84 36C84 60 72 74 46 74 46 50 58 36 84 36Z" />
+              <path class="nf__vein" d="M50 70 78 42" />
+            </svg>
+
+            <span class="nf__digit" aria-hidden="true">4</span>
+          </div>
+
+          <h1 data-i18n="nf.title">Bu sahifa topilmadi</h1>
+          <p class="nf__lead" data-i18n="nf.lead">
+            Havola eskirgan yoki manzil xato yozilgan bo'lishi mumkin. Lekin biz shu yerdamiz —
+            qo'ng'iroq qiling, savolingizga javob beramiz.
+          </p>
+
+          <div class="nf__call">
+            <div class="nf__call-label" data-i18n="nf.callLabel">Bizga qo'ng'iroq qiling</div>
+            <a class="nf__tel" href="tel:+998781138811">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.4 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.4c.8.3 1.7.6 2.6.7a2 2 0 0 1 1.7 2z"/>
+              </svg>
+              <span data-phone>+998 78 113 88 11</span>
+            </a>
+            <p class="nf__hours" data-i18n="nf.hours">Har kuni 9:00 — 18:00 · Qo'ng'iroq bepul</p>
+          </div>
+
+          <div class="nf__actions">
+            <a href="index.html" class="btn btn--primary" data-i18n="nf.home">Bosh sahifaga qaytish</a>
+            <a href="contact.html" class="btn btn--ghost" data-i18n="nf.contact">Ariza qoldirish</a>
+          </div>
+
+          <div class="nf__more">
+            <div class="nf__more-title" data-i18n="nf.searchTitle">Balki shular kerakdir:</div>
+            <div class="nf__chips">
+              <a href="products.html" data-i18n="nav.products">Mahsulotlar</a>
+              <a href="sales.html" data-i18n="nav.sales">Tariflar</a>
+              <a href="reviews.html" data-i18n="nav.reviews">Sharhlar</a>
+              <a href="contact.html" data-i18n="nav.contact">Aloqa</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer is built by script.js -->
+    <div id="site-footer"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

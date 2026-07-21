@@ -193,9 +193,21 @@
 
       "footer.rights": "Halila. Barcha huquqlar himoyalangan.",
 
+      // 404 page (404.html)
+      "nf.meta": "Sahifa topilmadi (404) — Halila",
+      "nf.eyebrow": "Xatolik 404",
+      "nf.title": "Bu sahifa topilmadi",
+      "nf.lead":
+        "Havola eskirgan yoki manzil xato yozilgan bo'lishi mumkin. Lekin biz shu yerdamiz — qo'ng'iroq qiling, savolingizga javob beramiz.",
+      "nf.callLabel": "Bizga qo'ng'iroq qiling",
+      "nf.hours": "Har kuni 9:00 — 18:00 · Qo'ng'iroq bepul",
+      "nf.home": "Bosh sahifaga qaytish",
+      "nf.contact": "Ariza qoldirish",
+      "nf.searchTitle": "Balki shular kerakdir:",
+
       // Form error messages
       "err.name": "Iltimos, ismingizni kiriting.",
-      "err.phone": "Iltimos, to'g'ri telefon raqam kiriting.",
+      "err.phone": "Telefon raqamini to'liq kiriting: +998 99 999 99 99.",
       "err.problem": "Iltimos, muammoingizni qisqacha yozing.",
       "err.generic": "Xatolik yuz berdi. Iltimos, qayta urinib ko'ring.",
       "err.network": "Tarmoq xatosi. Aloqangizni tekshirib, qayta urinib ko'ring.",
@@ -322,8 +334,19 @@
 
       "footer.rights": "Halila. Все права защищены.",
 
+      "nf.meta": "Страница не найдена (404) — Halila",
+      "nf.eyebrow": "Ошибка 404",
+      "nf.title": "Такая страница не найдена",
+      "nf.lead":
+        "Возможно, ссылка устарела или адрес набран с ошибкой. Но мы на месте — позвоните нам, и мы ответим на ваш вопрос.",
+      "nf.callLabel": "Позвоните нам",
+      "nf.hours": "Ежедневно 9:00 — 18:00 · Звонок бесплатный",
+      "nf.home": "На главную",
+      "nf.contact": "Оставить заявку",
+      "nf.searchTitle": "Возможно, вам сюда:",
+
       "err.name": "Пожалуйста, введите ваше имя.",
-      "err.phone": "Пожалуйста, введите корректный номер телефона.",
+      "err.phone": "Введите номер полностью: +998 99 999 99 99.",
       "err.problem": "Пожалуйста, кратко опишите вашу проблему.",
       "err.generic": "Что-то пошло не так. Попробуйте ещё раз.",
       "err.network": "Ошибка сети. Проверьте соединение и попробуйте снова.",
@@ -403,6 +426,13 @@
   document.querySelectorAll("[data-social-link]").forEach((el) => {
     const key = el.getAttribute("data-social-link");
     if (SOCIAL[key]) el.setAttribute("href", SOCIAL[key]);
+  });
+
+  // Any element marked data-phone shows the number from PHONE above, so the
+  // number itself still lives in exactly one place (used by 404.html).
+  document.querySelectorAll("[data-phone]").forEach((el) => {
+    el.textContent = PHONE.display;
+    if (el.tagName === "A") el.setAttribute("href", "tel:" + PHONE.tel);
   });
 
   // ===========================================================================
@@ -733,6 +763,54 @@
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   // ===========================================================================
+  // Phone mask — every tel field is locked to "+998 99 999 99 99".
+  // The +998 prefix can't be deleted and no more than 9 digits fit after it.
+  // ===========================================================================
+  const PHONE_MAX_DIGITS = 9;
+  function maskPhone(value) {
+    let d = String(value).replace(/[^\d]/g, "");
+    if (d.indexOf("998") === 0) d = d.slice(3);
+    d = d.slice(0, PHONE_MAX_DIGITS);
+    let out = "+998";
+    if (d.length > 0) out += " " + d.slice(0, 2);
+    if (d.length > 2) out += " " + d.slice(2, 5);
+    if (d.length > 5) out += " " + d.slice(5, 7);
+    if (d.length > 7) out += " " + d.slice(7, 9);
+    return out;
+  }
+
+  document.querySelectorAll('input[type="tel"]').forEach((input) => {
+    input.setAttribute("maxlength", "17"); // "+998 99 999 99 99"
+    input.setAttribute("inputmode", "numeric");
+
+    input.addEventListener("focus", () => {
+      if (!input.value) {
+        input.value = "+998 ";
+        try {
+          input.setSelectionRange(5, 5);
+        } catch (e) {
+          /* ignore */
+        }
+      }
+    });
+
+    input.addEventListener("input", () => {
+      input.value = maskPhone(input.value);
+      // The mask only appends/trims at the end, so the caret belongs there.
+      try {
+        input.setSelectionRange(input.value.length, input.value.length);
+      } catch (e) {
+        /* ignore */
+      }
+    });
+
+    // Left untouched? Clear it so the placeholder comes back.
+    input.addEventListener("blur", () => {
+      if (input.value.replace(/[^\d]/g, "") === "998") input.value = "";
+    });
+  });
+
+  // ===========================================================================
   // Lead form (only on pages that include it: Contact)
   // ===========================================================================
   const form = document.getElementById("leadForm");
@@ -753,8 +831,9 @@
     const validateClient = (data) => {
       const errors = {};
       if (!data.name || data.name.trim().length < 2) errors.name = "err.name";
+      // 998 + 9 digits — the mask above guarantees the shape, this checks length.
       const digits = (data.phone || "").replace(/[^\d]/g, "");
-      if (digits.length < 6) errors.phone = "err.phone";
+      if (digits.length !== 12) errors.phone = "err.phone";
       if (!data.problem || data.problem.trim().length < 2)
         errors.problem = "err.problem";
       return errors;
