@@ -178,6 +178,7 @@
       "success.again": "Yana yuborish",
       "success.close": "Yopish",
       "success.home": "Bosh sahifaga qaytish",
+      "success.tg": "Telegram guruhga qo'shilish",
 
       // Contact page
       "contact.title": "Aloqa",
@@ -309,6 +310,7 @@
       "success.again": "Отправить ещё",
       "success.close": "Закрыть",
       "success.home": "На главную",
+      "success.tg": "Вступить в Telegram-группу",
 
       "contact.title": "Контакты",
       "contact.sub": "Свяжитесь с нами или оставьте заявку — мы скоро ответим.",
@@ -395,6 +397,13 @@
     }
   }
   renderChrome();
+
+  // Any link marked data-social-link="telegram|instagram|youtube" gets its URL
+  // from the SOCIAL list above, so the address lives in only one place.
+  document.querySelectorAll("[data-social-link]").forEach((el) => {
+    const key = el.getAttribute("data-social-link");
+    if (SOCIAL[key]) el.setAttribute("href", SOCIAL[key]);
+  });
 
   // ===========================================================================
   // Apply a language to every [data-i18n] element on the page.
