@@ -180,6 +180,30 @@
       "success.home": "Bosh sahifaga qaytish",
       "success.tg": "Telegram guruhga qo'shilish",
 
+      // Ariza wizard (/ariza)
+      "wz.step1": "1-savol",
+      "wz.step2": "2-savol",
+      "wz.step3": "Oxirgi qadam",
+      "wz.back": "Orqaga",
+      "wz.buy.q": "Halila mahsulotini sotib olmoqchimisiz?",
+      "wz.buy.now": "Ha, sotib olmoqchiman",
+      "wz.buy.later": "Ha, lekin hozir emas",
+      "wz.buy.unsure": "Ha, lekin hali ishonchim komil emas",
+      "wz.buy.no": "Yo'q, sotib olmoqchi emasman",
+      "wz.no.title": "Tushunarli, majburlamaymiz 🙂",
+      "wz.no.text":
+        "Agar hozircha sotib olishni istamasangiz — bizning Telegram guruhimizga qo'shiling yoki savollaringiz bo'lsa admin bilan bevosita bog'laning.",
+      "wz.no.group": "Telegram guruhimizga qo'shilish",
+      "wz.no.admin": "Admin bilan bog'lanish — @Tabib_yusuf",
+      "wz.whom.q": "Mahsulotni kim uchun olmoqchisiz?",
+      "wz.whom.self": "O'zim uchun",
+      "wz.whom.relative": "Yaqinim uchun",
+      "wz.whom.relativeHint":
+        "Ota-ona, aka-uka/opa-singil, farzand yoki qarindosh",
+      "wz.contact.q": "Ma'lumotlaringizni qoldiring",
+      "wz.contact.sub":
+        "Ism va telefon raqamingizni yozing — tez orada qo'ng'iroq qilamiz.",
+
       // Contact page
       "contact.title": "Aloqa",
       "contact.sub":
@@ -324,6 +348,30 @@
       "success.home": "На главную",
       "success.tg": "Вступить в Telegram-группу",
 
+      // Ariza wizard (/ariza)
+      "wz.step1": "Вопрос 1",
+      "wz.step2": "Вопрос 2",
+      "wz.step3": "Последний шаг",
+      "wz.back": "Назад",
+      "wz.buy.q": "Хотите приобрести продукт Halila?",
+      "wz.buy.now": "Да, хочу купить",
+      "wz.buy.later": "Да, но не сейчас",
+      "wz.buy.unsure": "Да, но пока не уверен(а)",
+      "wz.buy.no": "Нет, не хочу покупать",
+      "wz.no.title": "Понятно, не настаиваем 🙂",
+      "wz.no.text":
+        "Если пока не хотите покупать — вступайте в наш Telegram-канал или напишите админу напрямую, если есть вопросы.",
+      "wz.no.group": "Вступить в Telegram-группу",
+      "wz.no.admin": "Написать админу — @Tabib_yusuf",
+      "wz.whom.q": "Для кого хотите приобрести продукт?",
+      "wz.whom.self": "Для себя",
+      "wz.whom.relative": "Для близкого",
+      "wz.whom.relativeHint":
+        "Родители, брат/сестра, дети или родственники",
+      "wz.contact.q": "Оставьте свои данные",
+      "wz.contact.sub":
+        "Укажите имя и номер телефона — мы скоро перезвоним.",
+
       "contact.title": "Контакты",
       "contact.sub": "Свяжитесь с нами или оставьте заявку — мы скоро ответим.",
       "contact.infoTitle": "Контактная информация",
@@ -388,6 +436,10 @@
           </a>
           <nav class="nav__menu" id="navMenu" aria-label="Main">${menu}</nav>
           <div class="nav__actions">
+            <a href="/ariza" class="btn btn--primary btn--sm nav__cta" data-nav="ariza">
+              <svg class="nav__cta-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
+              <span class="nav__cta-txt" data-i18n="nav.cta">Ariza qoldirish</span>
+            </a>
             <div class="lang" role="group" aria-label="Language">
               <button type="button" class="lang__btn" data-lang="uz">UZ</button>
               <button type="button" class="lang__btn" data-lang="ru">RU</button>
@@ -811,102 +863,135 @@
   });
 
   // ===========================================================================
-  // Lead form (only on pages that include it: Contact)
+  // Ariza wizard (/ariza) — a small multi-step qualifier that ends in a
+  // name + phone form and posts the lead (with the answers) to /api/lead.
   // ===========================================================================
-  const form = document.getElementById("leadForm");
-  if (form) {
-    const submitBtn = document.getElementById("submitBtn");
-    const success = document.getElementById("success");
-    const resetBtn = document.getElementById("resetBtn");
+  const wizard = document.getElementById("arizaWizard");
+  if (wizard) {
+    const state = { buy: null, whom: null };
+    const steps = Array.prototype.slice.call(
+      wizard.querySelectorAll(".wizard__step")
+    );
+    const progress = wizard.querySelector(".wizard__progress span");
+    const trail = []; // visited steps, powering the Back button
+    const PROGRESS = { buy: 25, whom: 60, contact: 90, no: 100 };
 
-    const setError = (field, key) => {
-      const input = form.elements[field];
-      const slot = form.querySelector(`[data-error-for="${field}"]`);
-      if (slot) slot.textContent = key ? t(key) : "";
-      if (input) input.classList.toggle("invalid", Boolean(key));
-    };
-    const clearErrors = () =>
-      ["name", "phone", "problem"].forEach((f) => setError(f, ""));
+    function showStep(name, record) {
+      const cur = steps.find((s) => s.classList.contains("is-active"));
+      if (record && cur && cur.dataset.step !== name) {
+        trail.push(cur.dataset.step);
+      }
+      steps.forEach((s) =>
+        s.classList.toggle("is-active", s.dataset.step === name)
+      );
+      if (progress) progress.style.width = (PROGRESS[name] || 0) + "%";
+      const active = steps.find((s) => s.dataset.step === name);
+      const focusable = active && active.querySelector("button, input, a");
+      if (focusable) {
+        try {
+          focusable.focus({ preventScroll: true });
+        } catch (e) {
+          /* ignore */
+        }
+      }
+    }
 
-    const validateClient = (data) => {
-      const errors = {};
-      if (!data.name || data.name.trim().length < 2) errors.name = "err.name";
-      // 998 + 9 digits — the mask above guarantees the shape, this checks length.
-      const digits = (data.phone || "").replace(/[^\d]/g, "");
-      if (digits.length !== 12) errors.phone = "err.phone";
-      if (!data.problem || data.problem.trim().length < 2)
-        errors.problem = "err.problem";
-      return errors;
-    };
-
-    form.addEventListener("input", (e) => {
-      if (e.target.name) setError(e.target.name, "");
+    // Q1 — do you want to buy?
+    wizard.querySelectorAll("[data-buy]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const v = btn.getAttribute("data-buy");
+        if (v === "no") {
+          showStep("no", true); // dead-end → Telegram links
+          return;
+        }
+        state.buy = v;
+        showStep("whom", true);
+      });
     });
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      clearErrors();
+    // Q2 — for whom?
+    wizard.querySelectorAll("[data-whom]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        state.whom = btn.getAttribute("data-whom");
+        showStep("contact", true);
+      });
+    });
 
-      const data = {
-        name: form.elements.name.value,
-        phone: form.elements.phone.value,
-        problem: form.elements.problem.value,
-        company: form.elements.company.value, // honeypot (anti-spam)
+    // Back
+    wizard.querySelectorAll("[data-back]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        showStep(trail.pop() || "buy", false);
+      });
+    });
+
+    // Final step: name + phone → POST lead → /rahmat
+    const aForm = document.getElementById("arizaForm");
+    if (aForm) {
+      const submitBtn = document.getElementById("arizaSubmit");
+      const setError = (field, key) => {
+        const input = aForm.elements[field];
+        const slot = aForm.querySelector('[data-error-for="' + field + '"]');
+        if (slot) slot.textContent = key ? t(key) : "";
+        if (input) input.classList.toggle("invalid", Boolean(key));
       };
+      const clearErrors = () => ["name", "phone"].forEach((f) => setError(f, ""));
 
-      const errors = validateClient(data);
-      if (Object.keys(errors).length) {
-        Object.entries(errors).forEach(([f, key]) => setError(f, key));
-        const first = form.elements[Object.keys(errors)[0]];
-        if (first) first.focus();
-        return;
-      }
+      aForm.addEventListener("input", (e) => {
+        if (e.target.name) setError(e.target.name, "");
+      });
 
-      submitBtn.disabled = true;
-      submitBtn.classList.add("is-loading");
+      aForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        clearErrors();
 
-      try {
-        const res = await fetch("/api/lead", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        });
-        const json = await res.json().catch(() => ({}));
+        const data = {
+          name: aForm.elements.name.value,
+          phone: aForm.elements.phone.value,
+          buy: state.buy,
+          whom: state.whom,
+          company: aForm.elements.company.value, // honeypot (anti-spam)
+        };
 
-        if (res.ok && json.ok) {
-          // Redirect to the dedicated thank-you page so it has a real URL
-          // (/rahmat) — needed for ad-conversion tracking (Meta "Lead").
-          window.location.href = "/rahmat";
+        const errors = {};
+        if (!data.name || data.name.trim().length < 2) errors.name = "err.name";
+        if ((data.phone || "").replace(/[^\d]/g, "").length !== 12)
+          errors.phone = "err.phone";
+        if (Object.keys(errors).length) {
+          Object.entries(errors).forEach(([f, key]) => setError(f, key));
+          const first = aForm.elements[Object.keys(errors)[0]];
+          if (first) first.focus();
           return;
         }
 
-        if (json.errors) {
-          const errKey = {
-            name: "err.name",
-            phone: "err.phone",
-            problem: "err.problem",
-          };
-          Object.keys(json.errors).forEach((f) =>
-            setError(f, errKey[f] || "err.generic")
-          );
-          return;
+        submitBtn.disabled = true;
+        submitBtn.classList.add("is-loading");
+        try {
+          const res = await fetch("/api/lead", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
+          const json = await res.json().catch(() => ({}));
+          if (res.ok && json.ok) {
+            window.location.href = "/rahmat";
+            return;
+          }
+          if (json.errors) {
+            const errKey = { name: "err.name", phone: "err.phone" };
+            Object.keys(json.errors).forEach((f) =>
+              setError(f, errKey[f] || "err.generic")
+            );
+            return;
+          }
+          alert(t("err.generic"));
+        } catch (err) {
+          alert(t("err.network"));
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.classList.remove("is-loading");
         }
-        alert(t("err.generic"));
-      } catch (err) {
-        alert(t("err.network"));
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.classList.remove("is-loading");
-      }
-    });
-
-    resetBtn.addEventListener("click", () => {
-      form.reset();
-      clearErrors();
-      form.hidden = false;
-      success.hidden = true;
-      form.elements.name.focus();
-    });
+      });
+    }
   }
 
   // Apply the saved/detected language to the whole page (incl. header/footer).

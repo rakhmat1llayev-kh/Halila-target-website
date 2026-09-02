@@ -98,45 +98,11 @@
             </ul>
           </div>
 
-          <div class="card" id="lead">
+          <div class="card contact-cta">
+            <div class="contact-cta__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h4"/></svg></div>
             <h2 class="card__title" data-i18n="card.title">Ariza qoldiring</h2>
-            <p class="card__sub" data-i18n="card.sub">Bu atigi 10 soniya.</p>
-
-            <form id="leadForm" novalidate>
-              <div class="field">
-                <label for="name"><span data-i18n="label.name">Ism</span> <span aria-hidden="true">*</span></label>
-                <input id="name" name="name" type="text" autocomplete="name" data-i18n-ph="ph.name" placeholder="Ismingiz" required />
-                <small class="error" data-error-for="name"></small>
-              </div>
-
-              <div class="field">
-                <label for="phone"><span data-i18n="label.phone">Telefon</span> <span aria-hidden="true">*</span></label>
-                <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+998 90 123 45 67" required />
-                <small class="error" data-error-for="phone"></small>
-              </div>
-
-              <div class="field">
-                <label for="problem"><span data-i18n="label.problem">Muammo (Kasallik turi, bosqichi)</span> <span aria-hidden="true">*</span></label>
-                <textarea id="problem" name="problem" rows="3" data-i18n-ph="ph.problem" placeholder="Kasallik turi, bosqichi" required></textarea>
-                <small class="error" data-error-for="problem"></small>
-              </div>
-
-              <div class="hp" aria-hidden="true">
-                <label>Company<input name="company" tabindex="-1" autocomplete="off" /></label>
-              </div>
-
-              <button type="submit" class="btn btn--primary btn--block" id="submitBtn">
-                <span class="btn__label" data-i18n="btn.submit">Yuborish</span>
-                <span class="btn__spinner" aria-hidden="true"></span>
-              </button>
-            </form>
-
-            <div class="success" id="success" hidden>
-              <div class="success__icon">✓</div>
-              <h3 data-i18n="success.title">Rahmat!</h3>
-              <p data-i18n="success.text">Raqamingizni qabul qildik va tez orada siz bilan bog'lanamiz.</p>
-              <button class="btn btn--ghost btn--sm" id="resetBtn" data-i18n="success.again">Yana yuborish</button>
-            </div>
+            <p class="card__sub" data-i18n="wz.contact.sub">Bir necha savolga javob bering — jamoamiz tez orada siz bilan bog'lanadi.</p>
+            <a href="/ariza" class="btn btn--primary btn--block" data-i18n="nav.cta">Ariza qoldirish</a>
           </div>
         </div>
       </section>

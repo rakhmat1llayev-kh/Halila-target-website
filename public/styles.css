@@ -462,9 +462,6 @@ body {
 }
 
 @media (max-width: 560px) {
-  .nav__cta {
-    display: none; /* form is right below — keep the nav uncluttered */
-  }
   .brand__logo {
     height: 30px;
   }
@@ -1908,4 +1905,239 @@ body.cursor-press .cursor-ring {
   .ty__spark {
     animation: none !important;
   }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   HEADER CTA BUTTON ("Ariza qoldirish" → /ariza)
+   ══════════════════════════════════════════════════════════════════════════ */
+.nav__cta {
+  gap: 7px;
+  white-space: nowrap;
+  flex: none;
+}
+.nav__cta-ico {
+  width: 17px;
+  height: 17px;
+}
+@media (max-width: 560px) {
+  .nav__cta-txt {
+    display: none;
+  }
+  .nav__cta {
+    width: 40px;
+    padding: 0;
+    justify-content: center;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   ARIZA WIZARD (/ariza) — multi-step qualifier
+   ══════════════════════════════════════════════════════════════════════════ */
+.ariza-section {
+  display: grid;
+  place-items: center;
+  min-height: 72vh;
+  padding: clamp(28px, 6vw, 72px) 0;
+}
+.ariza-wrap {
+  width: min(640px, 100%);
+}
+.wizard {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  box-shadow: var(--shadow);
+  padding: clamp(26px, 4vw, 42px);
+  overflow: hidden;
+}
+.wizard__progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--border);
+}
+.wizard__progress span {
+  display: block;
+  height: 100%;
+  width: 25%;
+  background: linear-gradient(90deg, #57bf00, var(--brand-strong));
+  transition: width 0.45s var(--enter-ease);
+}
+.wizard__step {
+  display: none;
+}
+.wizard__step.is-active {
+  display: block;
+  animation: fadeInUp 0.35s var(--enter-ease);
+}
+.wizard__count {
+  display: inline-block;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand);
+  background: var(--brand-soft);
+  padding: 5px 12px;
+  border-radius: 999px;
+  margin-bottom: 14px;
+}
+.wizard__q {
+  font-size: clamp(1.4rem, 3.2vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.16;
+  margin: 6px 0 22px;
+}
+.wizard__opts {
+  display: grid;
+  gap: 12px;
+}
+.wizard__opt {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  text-align: left;
+  padding: 17px 18px;
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 1.04rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color var(--dur), background var(--dur),
+    transform var(--dur), box-shadow var(--dur);
+}
+.wizard__opt:hover {
+  border-color: var(--brand);
+  background: var(--brand-soft);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+.wizard__opt:active {
+  transform: scale(0.99);
+}
+.wizard__opt-ico {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  background: var(--brand-soft);
+  color: var(--brand);
+  font-size: 1.15rem;
+}
+.wizard__opt--muted .wizard__opt-ico {
+  background: color-mix(in srgb, var(--muted) 16%, transparent);
+  color: var(--muted);
+}
+.wizard__opt--muted:hover {
+  border-color: color-mix(in srgb, var(--muted) 55%, var(--border));
+  background: color-mix(in srgb, var(--muted) 8%, transparent);
+  color: var(--text);
+}
+.wizard__opt--tall {
+  align-items: flex-start;
+}
+.wizard__opt--tall b {
+  display: block;
+  font-weight: 700;
+}
+.wizard__opt--tall small {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+.wizard__back {
+  margin-top: 22px;
+  padding: 8px 4px;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color var(--dur), transform var(--dur);
+}
+.wizard__back::before {
+  content: "← ";
+}
+.wizard__back:hover {
+  color: var(--brand);
+}
+.wizard__back:active {
+  transform: scale(0.96);
+}
+/* "No" branch — centered, with a Telegram badge */
+.wizard__step[data-step="no"],
+.wizard__step[data-step="no"] .wizard__links {
+  text-align: center;
+}
+.wizard__badge {
+  width: 76px;
+  height: 76px;
+  margin: 0 auto 18px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+}
+.wizard__badge--tg {
+  background: linear-gradient(180deg, #2ea6e0, #1c8ec4);
+  color: #fff;
+  box-shadow: 0 14px 34px -10px rgba(30, 140, 196, 0.6);
+}
+.wizard__badge svg {
+  width: 36px;
+  height: 36px;
+}
+.wizard__note {
+  color: var(--muted);
+  font-size: 1.02rem;
+  line-height: 1.6;
+  margin: 0 auto 22px;
+  max-width: 46ch;
+}
+.wizard__links {
+  display: grid;
+  gap: 12px;
+}
+.wizard__step[data-step="contact"] .field {
+  text-align: left;
+  margin-top: 16px;
+}
+
+/* Contact page — CTA card that replaces the old inline form */
+.contact-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.contact-cta__icon {
+  width: 62px;
+  height: 62px;
+  margin-bottom: 12px;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  background: var(--brand-soft);
+  color: var(--brand);
+}
+.contact-cta__icon svg {
+  width: 30px;
+  height: 30px;
+}
+.contact-cta .btn {
+  margin-top: 20px;
 }

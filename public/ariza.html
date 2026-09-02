@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="uz" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Halila — Ariza qoldirish</title>
+    <meta name="description" content="Bir necha savolga javob bering va ariza qoldiring." />
+    <meta name="theme-color" content="#57bf05" />
+    <link rel="icon" type="image/svg+xml" href="img/favicon.svg" />
+    <link rel="apple-touch-icon" href="img/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script>
+      (function () {
+        var root = document.documentElement;
+        root.classList.add("js");
+        try {
+          var t = localStorage.getItem("theme");
+          if (!t) t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+          root.setAttribute("data-theme", t);
+          var l = localStorage.getItem("lang");
+          if (!l) l = (navigator.language || "uz").toLowerCase().indexOf("ru") === 0 ? "ru" : "uz";
+          root.setAttribute("lang", l);
+        } catch (e) {
+          root.setAttribute("data-theme", "light");
+          root.setAttribute("lang", "uz");
+        }
+      })();
+    </script>
+
+    <!-- Meta Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '2816601732028084');
+      fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=2816601732028084&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+    <!-- AdTru Tracker -->
+    <script src="https://cdn.adtru.ai/tracker.js?wid=ca1a380f-b3d0-44cd-9fb6-62e7a0394bac" async></script>
+  </head>
+  <body data-page="ariza">
+    <div id="site-header"></div>
+
+    <main>
+      <section class="section ariza-section">
+        <div class="container ariza-wrap">
+          <div class="wizard" id="arizaWizard">
+            <div class="wizard__progress"><span></span></div>
+
+            <!-- STEP 1 — buy intent -->
+            <div class="wizard__step is-active" data-step="buy">
+              <span class="wizard__count" data-i18n="wz.step1">1-savol</span>
+              <h1 class="wizard__q" data-i18n="wz.buy.q">Halila mahsulotini sotib olmoqchimisiz?</h1>
+              <div class="wizard__opts">
+                <button type="button" class="wizard__opt" data-buy="yes_now">
+                  <span class="wizard__opt-ico">✓</span>
+                  <span data-i18n="wz.buy.now">Ha, sotib olmoqchiman</span>
+                </button>
+                <button type="button" class="wizard__opt" data-buy="yes_later">
+                  <span class="wizard__opt-ico">🕒</span>
+                  <span data-i18n="wz.buy.later">Ha, lekin hozir emas</span>
+                </button>
+                <button type="button" class="wizard__opt" data-buy="yes_unsure">
+                  <span class="wizard__opt-ico">🤔</span>
+                  <span data-i18n="wz.buy.unsure">Ha, lekin hali ishonchim komil emas</span>
+                </button>
+                <button type="button" class="wizard__opt wizard__opt--muted" data-buy="no">
+                  <span class="wizard__opt-ico">✕</span>
+                  <span data-i18n="wz.buy.no">Yo'q, sotib olmoqchi emasman</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- STEP — "No" branch (Telegram) -->
+            <div class="wizard__step" data-step="no">
+              <div class="wizard__badge wizard__badge--tg">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 3 2 10.5l6 2.2L18 6 10 13.5V20l3.5-3.2L19 21z"/></svg>
+              </div>
+              <h2 class="wizard__q" data-i18n="wz.no.title">Tushunarli, majburlamaymiz 🙂</h2>
+              <p class="wizard__note" data-i18n="wz.no.text">Agar hozircha sotib olishni istamasangiz — bizning Telegram guruhimizga qo'shiling yoki savollaringiz bo'lsa admin bilan bevosita bog'laning.</p>
+              <div class="wizard__links">
+                <a class="btn btn--primary btn--block" href="https://t.me/+ug1vmKzglNY4MmM6" target="_blank" rel="noopener" data-i18n="wz.no.group">Telegram guruhimizga qo'shilish</a>
+                <a class="btn btn--ghost btn--block" href="https://t.me/Tabib_yusuf" target="_blank" rel="noopener" data-i18n="wz.no.admin">Admin bilan bog'lanish — @Tabib_yusuf</a>
+              </div>
+              <button type="button" class="wizard__back" data-back>
+                <span data-i18n="wz.back">Orqaga</span>
+              </button>
+            </div>
+
+            <!-- STEP 2 — for whom -->
+            <div class="wizard__step" data-step="whom">
+              <span class="wizard__count" data-i18n="wz.step2">2-savol</span>
+              <h2 class="wizard__q" data-i18n="wz.whom.q">Mahsulotni kim uchun olmoqchisiz?</h2>
+              <div class="wizard__opts">
+                <button type="button" class="wizard__opt" data-whom="self">
+                  <span class="wizard__opt-ico">🙋</span>
+                  <span data-i18n="wz.whom.self">O'zim uchun</span>
+                </button>
+                <button type="button" class="wizard__opt wizard__opt--tall" data-whom="relative">
+                  <span class="wizard__opt-ico">👪</span>
+                  <span>
+                    <b data-i18n="wz.whom.relative">Yaqinim uchun</b>
+                    <small data-i18n="wz.whom.relativeHint">Ota-ona, aka-uka/opa-singil, farzand yoki qarindosh</small>
+                  </span>
+                </button>
+              </div>
+              <button type="button" class="wizard__back" data-back>
+                <span data-i18n="wz.back">Orqaga</span>
+              </button>
+            </div>
+
+            <!-- STEP 3 — contact -->
+            <div class="wizard__step" data-step="contact">
+              <span class="wizard__count" data-i18n="wz.step3">Oxirgi qadam</span>
+              <h2 class="wizard__q" data-i18n="wz.contact.q">Ma'lumotlaringizni qoldiring</h2>
+              <p class="wizard__note" data-i18n="wz.contact.sub">Ism va telefon raqamingizni yozing — tez orada qo'ng'iroq qilamiz.</p>
+
+              <form id="arizaForm" novalidate>
+                <div class="field">
+                  <label for="name"><span data-i18n="label.name">Ism</span> <span aria-hidden="true">*</span></label>
+                  <input id="name" name="name" type="text" autocomplete="name" data-i18n-ph="ph.name" placeholder="Ismingiz" required />
+                  <small class="error" data-error-for="name"></small>
+                </div>
+
+                <div class="field">
+                  <label for="phone"><span data-i18n="label.phone">Telefon</span> <span aria-hidden="true">*</span></label>
+                  <input id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="+998 90 123 45 67" value="+998 " required />
+                  <small class="error" data-error-for="phone"></small>
+                </div>
+
+                <div class="hp" aria-hidden="true">
+                  <label>Company<input name="company" tabindex="-1" autocomplete="off" /></label>
+                </div>
+
+                <button type="submit" class="btn btn--primary btn--block" id="arizaSubmit">
+                  <span class="btn__label" data-i18n="btn.submit">Yuborish</span>
+                  <span class="btn__spinner" aria-hidden="true"></span>
+                </button>
+              </form>
+
+              <button type="button" class="wizard__back" data-back>
+                <span data-i18n="wz.back">Orqaga</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="site-footer"></div>
+    <script src="script.js"></script>
+  </body>
+</html>

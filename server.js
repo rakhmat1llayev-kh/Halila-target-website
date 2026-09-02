@@ -32,18 +32,29 @@ function rateLimited(ip) {
 // ── Validation helpers ────────────────────────────────────────────────────────
 const clean = (v, maxLen) => String(v ?? "").trim().slice(0, maxLen);
 
+// Wizard answers → human-readable Uzbek labels for the Telegram message.
+const BUY_LABELS = {
+  yes_now: "Ha, sotib olmoqchi",
+  yes_later: "Ha, lekin hozir emas",
+  yes_unsure: "Ha, lekin ishonchi komil emas",
+};
+const WHOM_LABELS = {
+  self: "O'zi uchun",
+  relative: "Yaqini uchun",
+};
+
 function validate(body) {
   const errors = {};
   const name = clean(body.name, 100);
   const phone = clean(body.phone, 40);
-  const problem = clean(body.problem, 1000);
+  const buy = BUY_LABELS[clean(body.buy, 20)] || "";
+  const whom = WHOM_LABELS[clean(body.whom, 20)] || "";
 
   if (name.length < 2) errors.name = "Please enter your name.";
   if (phone.replace(/[^\d]/g, "").length < 6)
     errors.phone = "Please enter a valid phone number.";
-  if (problem.length < 2) errors.problem = "Please describe your problem.";
 
-  return { errors, data: { name, phone, problem } };
+  return { errors, data: { name, phone, buy, whom } };
 }
 
 // ── Telegram delivery ─────────────────────────────────────────────────────────
@@ -54,14 +65,15 @@ function escapeHtml(s) {
     .replace(/>/g, "&gt;");
 }
 
-async function sendToTelegram({ name, phone, problem }) {
+async function sendToTelegram({ name, phone, buy, whom }) {
   const lines = [
     "🟢 <b>Target saytdan yangi ariza</b>",
     "",
     `👤 <b>Ism:</b> ${escapeHtml(name)}`,
     `📞 <b>Telefon:</b> ${escapeHtml(phone)}`,
-    `🩺 <b>Muammo:</b> ${escapeHtml(problem)}`,
   ];
+  if (buy) lines.push(`🛒 <b>Xarid niyati:</b> ${escapeHtml(buy)}`);
+  if (whom) lines.push(`👥 <b>Kim uchun:</b> ${escapeHtml(whom)}`);
 
   const res = await fetch(
     `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,

@@ -69,7 +69,6 @@
             </p>
             <div class="hero__cta">
               <a href="products.html" class="btn btn--primary" data-i18n="nav.products">Mahsulotlar</a>
-              <a href="#lead" class="btn btn--ghost" data-i18n="nav.cta">Ariza qoldirish</a>
             </div>
             <ul class="ticks">
               <li data-i18n="tick.1">Sifat kafolati</li>
@@ -127,7 +126,7 @@
                 <div class="product__meta">
                   <span class="stars" aria-label="5/5">★★★★★</span>
                 </div>
-                <a href="#lead" class="btn btn--primary btn--sm" data-i18n="prod.order">Buyurtma berish</a>
+                <a href="/ariza" class="btn btn--primary btn--sm" data-i18n="prod.order">Buyurtma berish</a>
               </div>
             </article>
             <article class="product reveal">
@@ -138,7 +137,7 @@
                 <div class="product__meta">
                   <span class="stars" aria-label="5/5">★★★★★</span>
                 </div>
-                <a href="#lead" class="btn btn--primary btn--sm" data-i18n="prod.order">Buyurtma berish</a>
+                <a href="/ariza" class="btn btn--primary btn--sm" data-i18n="prod.order">Buyurtma berish</a>
               </div>
             </article>
             <article class="product reveal">
@@ -149,7 +148,7 @@
                 <div class="product__meta">
                   <span class="stars" aria-label="5/5">★★★★★</span>
                 </div>
-                <a href="#lead" class="btn btn--primary btn--sm" data-i18n="prod.order">Buyurtma berish</a>
+                <a href="/ariza" class="btn btn--primary btn--sm" data-i18n="prod.order">Buyurtma berish</a>
               </div>
             </article>
           </div>
@@ -177,65 +176,13 @@
         </div>
       </section>
 
-      <!-- ===================== "LEAVE YOUR NUMBER" CALLBACK + FORM ===================== -->
-      <section class="section" id="lead">
-        <div class="container hero__grid">
-          <div class="hero__copy">
-            <span class="eyebrow">Halila</span>
-            <h2 class="callback-title">
-              <span data-i18n="call.h1a">Raqamingizni qoldiring — </span>
-              <span class="accent" data-i18n="call.h1b">biz o'zimiz qo'ng'iroq qilamiz.</span>
-            </h2>
-            <p class="lead" data-i18n-html="call.lead">
-              Ism va telefon raqamingizni qoldiring. Halila jamoasi ish vaqtida
-              <strong>15 daqiqa ichida</strong> siz bilan bog'lanadi.
-            </p>
-            <ul class="ticks">
-              <li data-i18n="call.tick1">Tez javob — kutib o'tirmaysiz</li>
-              <li data-i18n="call.tick2">Spam yo'q, hech qanday majburiyat yo'q</li>
-              <li data-i18n="call.tick3">Ma'lumotlaringiz maxfiy saqlanadi</li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <h3 class="card__title" data-i18n="card.title">Ariza qoldiring</h3>
-            <p class="card__sub" data-i18n="card.sub">Bu atigi 10 soniya.</p>
-
-            <form id="leadForm" novalidate>
-              <div class="field">
-                <label for="name"><span data-i18n="label.name">Ism</span> <span aria-hidden="true">*</span></label>
-                <input id="name" name="name" type="text" autocomplete="name" data-i18n-ph="ph.name" placeholder="Ismingiz" required />
-                <small class="error" data-error-for="name"></small>
-              </div>
-
-              <div class="field">
-                <label for="phone"><span data-i18n="label.phone">Telefon</span> <span aria-hidden="true">*</span></label>
-                <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+998 90 123 45 67" required />
-                <small class="error" data-error-for="phone"></small>
-              </div>
-
-              <div class="field">
-                <label for="problem"><span data-i18n="label.problem">Muammo (Kasallik turi, bosqichi)</span> <span aria-hidden="true">*</span></label>
-                <textarea id="problem" name="problem" rows="3" data-i18n-ph="ph.problem" placeholder="Kasallik turi, bosqichi" required></textarea>
-                <small class="error" data-error-for="problem"></small>
-              </div>
-
-              <div class="hp" aria-hidden="true">
-                <label>Company<input name="company" tabindex="-1" autocomplete="off" /></label>
-              </div>
-
-              <button type="submit" class="btn btn--primary btn--block" id="submitBtn">
-                <span class="btn__label" data-i18n="btn.submit">Yuborish</span>
-                <span class="btn__spinner" aria-hidden="true"></span>
-              </button>
-            </form>
-
-            <div class="success" id="success" hidden>
-              <div class="success__icon">✓</div>
-              <h3 data-i18n="success.title">Rahmat!</h3>
-              <p data-i18n="success.text">Raqamingizni qabul qildik va tez orada siz bilan bog'lanamiz.</p>
-              <button class="btn btn--ghost btn--sm" id="resetBtn" data-i18n="success.again">Yana yuborish</button>
-            </div>
+      <!-- ===================== CTA BAND → /ariza ===================== -->
+      <section class="section cta-band">
+        <div class="container">
+          <div class="cta-band__inner reveal">
+            <h2 data-i18n="cta.title">Hoziroq boshlaymizmi?</h2>
+            <p data-i18n="cta.text">Ariza qoldiring va biz siz bilan tez orada bog'lanamiz.</p>
+            <a href="/ariza" class="btn" data-i18n="nav.cta">Ariza qoldirish</a>
           </div>
         </div>
       </section>
